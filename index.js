@@ -1,5 +1,6 @@
 const electron = require('electron')
 const ipcr = require('electron').ipcRenderer
+const dialog = require('electron').remote.dialog
 
 
 randomNumbers = []
@@ -31,7 +32,7 @@ const btnGenerate = document.getElementById('btnGenerate')
 btnAddNumber.addEventListener('click', () => {
     if (c > 29) {
         inpCustomNumber.value = ""
-        alert("maximum amount of numbers reached")
+        dialog.showMessageBoxSync({type:"error", message:"maximum amount of numbers reached"})
     }
     else {
         if (inpCustomNumber.value != "") {
@@ -41,7 +42,8 @@ btnAddNumber.addEventListener('click', () => {
             c++
         }
         else {
-            alert('Enter a number')
+            dialog.showMessageBoxSync({type:"error", message:"Enter a number"})
+            inpCustomNumber.value = ""
         }
     }
 })
