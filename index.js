@@ -1,48 +1,61 @@
-w = window.innerWidth;
-h = window.innerHeight;
-
-document.querySelector('body').classList.add("bg-dark")
+const electron = require('electron')
+const ipcr = require('electron').ipcRenderer
 
 
-createvid = () => {
-    div = document.getElementById('d')
+randomNumbers = []
+customNumbers = []
+numbers = []
 
-    vid = document.createElement('video')
-    vid.height = h
-    vid.style="margin: 0 auto; width: 100%; display:block;"
-    vid.autoplay = true
+//Generate random numbers
+c = 0
+generate = () => {
+    window.randomNumbers = []
 
-    sou = document.createElement('source')
-    sou.src = "./videos/test.mp4"
-    sou.type = "video/mp4"
-    d.style="text-align:center"
-
-
-    div.appendChild(vid)
-    vid.appendChild(sou)
-}
-
-nums = [10, 123, 4545, 23]
-
-repeat_play = (nums) => {
-
-    if (nums.length == 0) {
-        document.getElementById('d').innerHTML = "done"
+    while (c != 30) {
+        ran = Math.floor(Math.random() * (1000))
+        if (window.randomNumbers.includes(ran)) {
+            continue
+        }
+        window.randomNumbers.push(ran)
+        c++
     }
 
+    numbers = randomNumbers.concat(customNumbers)
+    c = 0
+}
+
+const btnAddNumber = document.getElementById('btnAddNumber')
+const inpCustomNumber = document.getElementById('customNumber')
+const btnGenerate = document.getElementById('btnGenerate')
+
+btnAddNumber.addEventListener('click', () => {
+    if (c > 29) {
+        inpCustomNumber.value = ""
+        alert("maximum amount of numbers reached")
+    }
     else {
-        createvid()
-        vid.onended = () => {
-            document.getElementById('d').innerHTML = ""
-            document.getElementById('d').innerHTML = nums[nums.length - 1]
-            setTimeout(() => {
-                document.getElementById('d').innerHTML = ""
-                nums.pop()
-                repeat_play(nums)
-            }, 5000)
+        if (inpCustomNumber.value != "") {
+            customNumbers.push(inpCustomNumber.value)
+            inpCustomNumber.value = ""
+            document.getElementById('customNumbers').innerHTML = customNumbers
+            c++
+        }
+        else {
+            alert('Enter a number')
         }
     }
+})
 
-}
+btnGenerate.addEventListener('click', () => {
+    generate()
+    document.getElementById('randomNumbers').innerHTML = window.numbers
+})
 
-repeat_play(nums)
+// show the Client Screen
+const btnShowClient = document.getElementById('btnShowClient')
+
+btnShowClient.addEventListener('click', () => {
+    ipcr.send('numbers', window.numbers)
+    console.log("btnShowClient")
+})
+

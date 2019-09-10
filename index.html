@@ -1,17 +1,35 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-  </head>
-  <body style="margin: 0;">
-    <div id="d">
-    </div>
 
-    <!-- You can also require other files to run in this process -->
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./renderer.js"></script>
-    <script src="./index.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Random Generator</title>
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+
+<body class="bg-dark">
+  <div class="container">
+    <div class="row">
+      <div class="col-9">
+        <div class="text-break" id="randomNumbers" style="color: white; font-size: 70px">0</div>
+
+      </div>
+      <div class="col-3" style="border-left: solid 2px grey; height: 100vh;">
+        <p style="font-size: 20px; color: white;">Custom Numbers Added</p>
+        <div class="text-break p-4" id="customNumbers" style="height: 30vh; color: white; font-size: 30px"></div>
+        <button class="btn btn-primary mb-5" style="margin-top:20px" id="btnGenerate">Generate Numbers</button>
+        <div class="form-group">
+          <input type="number" class="form-control" placeholder="Enter the number" id="customNumber">
+        </div>
+        <button class="btn btn-primary m-2" id="btnAddNumber">Add Number</button>
+        <button class="btn btn-primary" id="btnShowClient">Show Client</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="./renderer.js"></script>
+  <script src="./index.js"></script>
+</body>
+
 </html>
